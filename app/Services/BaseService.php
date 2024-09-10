@@ -107,5 +107,9 @@ abstract class BaseService
         return $this;
     }
 
-    abstract public function handle(): mixed;
+    /**
+     * Logic to handle the data
+     * @return mixed
+     */
+    abstract public function handle();
 }

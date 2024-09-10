@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Console\Commands;
 
+use App\Services\Item\ImportItemsService;
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\Http;
 
 class ImportItems extends Command
 {
@@ -28,16 +28,6 @@ class ImportItems extends Command
      */
     public function handle() // @phpstan-ignore-line
     {
-        $response = Http::get('https://api.restful-api.dev/objects');
-
-        if ($response->ok()) {
-            $items = $response->json();
-
-            foreach ($items as $item) {
-                $this->info("Imported/Updated: {$item->name}");
-            }
-        } else {
-            $this->error('Failed to fetch data from API.');
-        }
+        resolve(ImportItemsService::class)->handle();
     }
 }
