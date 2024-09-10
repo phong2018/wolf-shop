@@ -1,6 +1,9 @@
 # Coding assessment - PHP Version
+
 ## Requirement
+
 - php 8.1
+- mysql 8.0.3
 
 ## Install app
 
