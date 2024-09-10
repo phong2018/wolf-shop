@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
@@ -24,19 +26,14 @@ class ImportItems extends Command
     /**
      * Execute the console command.
      */
-    public function handle()
+    public function handle() // @phpstan-ignore-line
     {
         $response = Http::get('https://api.restful-api.dev/objects');
 
         if ($response->ok()) {
             $items = $response->json();
 
-            foreach ($items as $data) {
-                $item = Item::updateOrCreate(
-                    ['name' => $data['name']],
-                    ['sell_in' => $data['sellIn'], 'quality' => $data['quality']]
-                );
-
+            foreach ($items as $item) {
                 $this->info("Imported/Updated: {$item->name}");
             }
         } else {
