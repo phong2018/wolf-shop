@@ -36,6 +36,20 @@ class ItemRepositoryEloquents extends BaseRepository implements ItemRepository
     }
 
     /**
+     * Show the specified resource.
+     *
+     * @param  mixed  $model
+     * @param  mixed  $data
+     * @return mixed
+     */
+    public function show($model, $data)
+    {
+        return $this->pushCriteria(
+            new WithRelationsCriteria($data->get('with'), $this->allowRelations())
+        )->find($model);
+    }
+
+    /**
      * Get the orderable fields.
      *
      * @return string[] array of getOrderableFields

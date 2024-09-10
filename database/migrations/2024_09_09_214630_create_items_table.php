@@ -18,6 +18,7 @@ return new class extends Migration
             $table->integer('quality');
             $table->json('data');
             $table->string('img_url')->nullable();
+            $table->string('img_url_public_id')->nullable();
             $table->timestamps();
         });
     }

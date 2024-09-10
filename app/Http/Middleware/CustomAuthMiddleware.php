@@ -18,13 +18,24 @@ class CustomAuthMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        $username = env('API_USERNAME');
-        $password = env('API_PASSWORD');
+        if ($request->hasHeader('Authorization')) {
+            $authHeader = $request->header('Authorization');
+            list($type, $credentials) = explode(' ', $authHeader, 2); // @phpstan-ignore-line
 
-        if ($request->get('username') !== $username || $request->get('password') !== $password) {
-            throw new AuthenticationException();
+            if (strtolower($type) === 'basic') {
+                $decodedCredentials = base64_decode($credentials, true);
+                list($username, $password) = explode(':', $decodedCredentials, 2); // @phpstan-ignore-line
+
+                // Hardcoded credentials
+                $validUsername = env('API_USERNAME');
+                $validPassword = env('API_PASSWORD');
+
+                if ($username === $validUsername && $password === $validPassword) {
+                    return $next($request);
+                }
+            }
         }
 
-        return $next($request);
+        throw new AuthenticationException();
     }
 }

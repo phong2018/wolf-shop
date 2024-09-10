@@ -16,6 +16,7 @@ class Item extends Model
         'sell_in',
         'quality',
         'img_url',
+        'img_url_public_id',
         'data',
     ];
 

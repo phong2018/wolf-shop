@@ -20,4 +20,13 @@ interface ItemRepository extends RepositoryInterface
      * @return mixed
      */
     public function list($data);
+
+    /**
+     * Show the specified resource.
+     *
+     * @param  mixed  $model
+     * @param  mixed  $data
+     * @return mixed
+     */
+    public function show($model, $data);
 }

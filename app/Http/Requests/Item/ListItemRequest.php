@@ -5,9 +5,8 @@ declare(strict_types=1);
 namespace App\Http\Requests\Item;
 
 use App\Http\Requests\BaseRequest;
-use Illuminate\Validation\Rule;
 
-class UploadImageItemRequest extends BaseRequest
+class ListItemRequest extends BaseRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -26,18 +25,11 @@ class UploadImageItemRequest extends BaseRequest
      */
     public function rules()
     {
-        return [
-            'item_id' => [
-                'required',
+        return array_merge($this->commonListRules(), [
+            'id' => [
+                'nullable',
                 'integer',
-                Rule::exists('items', 'id'),
             ],
-            'image' => [
-                'required',
-                'image',
-                'mimes:jpeg,png,jpg,gif,svg',
-                'max:' . BaseRequest::MAX_IMAGE_SIZE,
-            ],
-        ];
+        ]);
     }
 }

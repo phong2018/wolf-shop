@@ -10,6 +10,8 @@ use Cloudinary\Cloudinary;
 
 class UploadImageItemService extends BaseService
 {
+    public const IMAGE_PATH_ITEMS = 'items_folder';
+
     protected $collectsData = true;
 
     protected Cloudinary $cloudinary;
@@ -29,13 +31,22 @@ class UploadImageItemService extends BaseService
     public function handle()
     {
         $file = $this->data->get('image');
-        $uploadResult = $this->cloudinary->uploadApi()->upload($file->getRealPath(), [
-            'folder' => 'items_folder',
-        ]);
-        $imageUrl = $uploadResult['secure_url'];
 
-        return [
-            'url' => $imageUrl,
-        ];
+        // delete existed image
+        if (! empty($this->model->img_url_public_id)) {
+            $this->cloudinary->uploadApi()->destroy($this->model->img_url_public_id);
+        }
+
+        // update new image
+        $uploadResult = $this->cloudinary->uploadApi()->upload($file->getRealPath(), [
+            'folder' => self::IMAGE_PATH_ITEMS,
+        ]);
+
+        $itemUpdated = $this->repository->update([
+            'img_url' => $uploadResult['secure_url'],
+            'img_url_public_id' => $uploadResult['public_id'],
+        ], $this->model->id); // @phpstan-ignore-line
+
+        return $itemUpdated;
     }
 }

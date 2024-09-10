@@ -22,6 +22,7 @@ class ItemResource extends JsonResource
             'sell_in',
             'quality',
             'img_url',
+            'data',
         ]);
 
         return $result;
