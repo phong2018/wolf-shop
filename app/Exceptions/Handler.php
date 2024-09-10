@@ -36,9 +36,10 @@ class Handler extends ExceptionHandler
      */
     public function logException(Throwable $e) // @phpstan-ignore-line
     {
-        if (! ($e instanceof ValidationException)
-            && ! ($e instanceof AuthenticationException)
-            && ! ($e instanceof ModelNotFoundException)
+        if (! ($e instanceof BaseException)
+        && ! ($e instanceof ValidationException)
+        && ! ($e instanceof AuthenticationException)
+        && ! ($e instanceof ModelNotFoundException)
         ) {
             Log::error($e);
         }
@@ -53,21 +54,15 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Throwable $e)
     {
-        // check if !(api || axios) then return
-        if (! ($request->is('api/*') || $request->ajax())) {
-            return parent::render($request, $e); // @phpstan-ignore-line
-        }
-
-        // handle for exception (api || axios)
-        $message = __('messages')['errors']['unexpected']; // @phpstan-ignore-line
+        $statusCode = 400;
         $errors = [];
-        $statusCode = Response::HTTP_BAD_REQUEST;
+        $message = __('messages.errors.unexpected');
 
         $this->logException($e);
 
         switch (true) {
             case $e instanceof ValidationException:
-                $message = __('messages')['errors']['input']; // @phpstan-ignore-line
+                $message = __('messages.errors.input');
                 $errors = $e->errors();
                 $statusCode = Response::HTTP_UNPROCESSABLE_ENTITY;
                 break;
@@ -79,7 +74,7 @@ class Handler extends ExceptionHandler
                 break;
 
             case $e instanceof ModelNotFoundException:
-                $message = __('messages')['errors']['not_found']; // @phpstan-ignore-line
+                $message = __('messages.errors.not_found');
                 $errors = 'record.not_found';
                 $statusCode = Response::HTTP_NOT_FOUND;
                 break;
@@ -87,16 +82,20 @@ class Handler extends ExceptionHandler
             case $e instanceof RouteNotFoundException:
             case $e instanceof NotFoundHttpException:
             case $e instanceof MethodNotAllowedHttpException:
-                $message = __('messages')['errors']['route']; // @phpstan-ignore-line
+                $message = __('messages.errors.route');
                 $errors = 'route.not_found';
                 $statusCode = Response::HTTP_NOT_FOUND;
                 break;
 
+            case $e instanceof BaseException:
+                $message = $e->getMessage();
+                $errors = $e->getMessageCode();
+                $statusCode = $e->getCode();
+                break;
+
             case $e instanceof ConnectionException:
             case $e instanceof PDOException:
-                $message = __('messages')['errors']['error_db']; // @phpstan-ignore-line
-                // $errors     = $e->getMessage();
-                $statusCode = Response::HTTP_INTERNAL_SERVER_ERROR;
+                $statusCode = 500;
                 break;
 
             default:
