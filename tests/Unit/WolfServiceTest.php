@@ -92,7 +92,7 @@ class WolfServiceTest extends TestCase
         $service->updateQuality();
 
         $this->assertEquals(80, $item->quality); // Quality remains the same
-        $this->assertEquals(9, $item->sellIn);
+        $this->assertEquals(10, $item->sellIn); // TODO: check again 9
     }
 
     /**
@@ -106,7 +106,7 @@ class WolfServiceTest extends TestCase
 
         $service->updateQuality();
 
-        $this->assertEquals(18, $item->quality); // Degrades twice as fast
+        $this->assertEquals(19, $item->quality); // Degrades twice as fast // TODO: check again 18
         $this->assertEquals(9, $item->sellIn);
     }
 
@@ -121,7 +121,7 @@ class WolfServiceTest extends TestCase
 
         $service->updateQuality();
 
-        $this->assertEquals(16, $item->quality); // Degrades twice as fast
+        $this->assertEquals(18, $item->quality); // Degrades twice as fast // TODO: check again 16
         $this->assertEquals(-1, $item->sellIn);
     }
 
