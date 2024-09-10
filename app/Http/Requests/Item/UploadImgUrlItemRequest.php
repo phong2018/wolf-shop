@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Http\Requests\Admin\User;
+namespace App\Http\Requests\Item;
 
 use App\Http\Requests\BaseRequest;
 

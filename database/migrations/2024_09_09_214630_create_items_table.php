@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('name')->unique();
             $table->integer('sell_in');
             $table->integer('quality');
+            $table->json('data');
             $table->string('img_url')->nullable();
             $table->timestamps();
         });

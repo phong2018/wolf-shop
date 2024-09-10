@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Providers;
 
 use Cloudinary\Cloudinary;
@@ -9,8 +11,6 @@ class CloudinaryServiceProvider extends ServiceProvider
 {
     /**
      * Register services.
-     *
-     * @return void
      */
     public function register()
     {
@@ -22,18 +22,16 @@ class CloudinaryServiceProvider extends ServiceProvider
                     'api_secret' => env('CLOUDINARY_API_SECRET'),
                 ],
                 'url' => [
-                    'secure' => true
-                ]
+                    'secure' => true,
+                ],
             ]);
         });
     }
 
     /**
-     * Bootstrap services.
-     *
-     * @return void
+     * Bootstrap any application services.
      */
-    public function boot()
+    public function boot(): void
     {
         //
     }
