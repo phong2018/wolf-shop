@@ -25,6 +25,17 @@ class UploadImageItemRequest extends BaseRequest
      */
     public function rules()
     {
-        return [];
+        return [
+            'item_id' => [
+                'required',
+                'integer',
+            ],
+            'image' => [
+                'required',
+                'image',
+                'mimes:jpeg,png,jpg,gif,svg',
+                'max:' . BaseRequest::MAX_IMAGE_SIZE,
+            ],
+        ];
     }
 }

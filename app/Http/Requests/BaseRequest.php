@@ -27,9 +27,7 @@ class BaseRequest extends FormRequest
 
     public const MAX_LENGTH_PASSWORD = 50;
 
-    public const MAX_SIZE_SIZE = 5000;
-
-    public const MAX_SIZE_CSV = 5000;
+    public const MAX_IMAGE_SIZE = 5000;
 
     /**
      * Common list rules
