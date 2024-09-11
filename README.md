@@ -15,10 +15,11 @@
 
 ## Install app
 
-- composer install
-- cp .env.example .env
-- docker exec -it laradock-workspace-1 /bin/bash
-- php artisan key:generate
+- docker exec -it laradock-workspace-1 /bin/bash  -> to access container (case using docker)
+- composer install -> to install packages
+- cp .env.example .env -> to copy .env file
+- php artisan migration -> to migrate database
+- php artisan app:import-items -> to run command import items
 - access http://wolf-shop.local
 
 ## Runs PHPUnit test, check coding standard (ECS) & automatically fix any violations
