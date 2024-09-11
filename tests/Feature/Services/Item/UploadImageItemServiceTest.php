@@ -33,7 +33,7 @@ class UploadImageItemServiceTest extends TestCase
         // request uploadImage
         $response = $this->withHeaders([
             'Authorization' => 'Basic ' . base64_encode('username:wrong_password'),
-        ])->postJson(route('items.uploadImageItem'), []);
+        ])->patchJson(route('items.uploadImageItem'), []);
 
         // assert unauthorzed
         $response->assertUnauthorized();
@@ -44,7 +44,7 @@ class UploadImageItemServiceTest extends TestCase
         // request uploadImage
         $response = $this->withHeaders([
             'Authorization' => 'Basic ' . base64_encode('username:password'),
-        ])->postJson(route('items.uploadImageItem'), []);
+        ])->patchJson(route('items.uploadImageItem'), []);
 
         // assert valiation fail
         $response->assertUnprocessable()
@@ -77,7 +77,7 @@ class UploadImageItemServiceTest extends TestCase
         // request uploadImage
         $response = $this->withHeaders([
             'Authorization' => 'Basic ' . base64_encode('username:password'),
-        ])->postJson(route('items.uploadImageItem'), [
+        ])->patchJson(route('items.uploadImageItem'), [
             'image' => UploadedFile::fake()->image('test-image.jpg'),
             'item_id' => $this->item->id,
         ]);
@@ -112,7 +112,7 @@ class UploadImageItemServiceTest extends TestCase
         // request uploadImage
         $response = $this->withHeaders([
             'Authorization' => 'Basic ' . base64_encode('username:password'),
-        ])->postJson(route('items.uploadImageItem'), [
+        ])->patchJson(route('items.uploadImageItem'), [
             'image' => UploadedFile::fake()->image('test-image.jpg'),
             'item_id' => $this->item->id,
         ]);

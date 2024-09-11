@@ -1,0 +1,101 @@
+{
+	"info": {
+		"_postman_id": "1d727ac7-3a93-4fa8-9d90-4228f1cf002b",
+		"name": "Wolf-shop",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "3819973"
+	},
+	"item": [
+		{
+			"name": "Get List Items",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "username",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "password",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://wolf-shop.local/api/items",
+					"protocol": "http",
+					"host": [
+						"wolf-shop",
+						"local"
+					],
+					"path": [
+						"api",
+						"items"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Upload image Item",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "password",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "username",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "item_id",
+							"value": "2",
+							"type": "text"
+						},
+						{
+							"key": "image",
+							"type": "file",
+							"src": "/C:/Users/phong/Pictures/Screenshots/Screenshot (2).png"
+						},
+						{
+							"key": "_method",
+							"value": "PATCH",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://wolf-shop.local/api/items/upload-image",
+					"protocol": "http",
+					"host": [
+						"wolf-shop",
+						"local"
+					],
+					"path": [
+						"api",
+						"items",
+						"upload-image"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
