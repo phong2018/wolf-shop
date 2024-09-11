@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Exceptions;
 
+use Cloudinary\Api\Exception\AuthorizationRequired;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
@@ -56,7 +57,7 @@ class Handler extends ExceptionHandler
     {
         $statusCode = 400;
         $errors = [];
-        $message = __('messages.errors.unexpected');
+        $message = $e->getMessage();
 
         $this->logException($e);
 
@@ -85,6 +86,12 @@ class Handler extends ExceptionHandler
                 $message = __('messages.errors.route');
                 $errors = 'route.not_found';
                 $statusCode = Response::HTTP_NOT_FOUND;
+                break;
+
+            case $e instanceof AuthorizationRequired:
+                $message = __('messages.errors.cloudinary_authorization_fail');
+                $errors = 'error.cloudinary_authorization_fail';
+                $statusCode = Response::HTTP_BAD_REQUEST;
                 break;
 
             case $e instanceof BaseException:

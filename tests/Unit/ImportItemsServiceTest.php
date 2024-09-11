@@ -15,8 +15,9 @@ class ImportItemsServiceTest extends TestCase
 {
     use RefreshDatabase;
 
-    protected $repository;
-    protected $service;
+    protected ItemRepository $repository;
+
+    protected ImportItemsService $service;
 
     protected function setUp(): void
     {
@@ -27,13 +28,21 @@ class ImportItemsServiceTest extends TestCase
         $this->service = new ImportItemsService($this->repository);
     }
 
-    public function testHandleSuccess()
+    public function testHandleSuccess(): void
     {
         // Fake HTTP response
         Http::fake([
             ImportItemsService::URL_GET_LIST_ITEMS => Http::response([
-                ['name' => 'Test Item', 'sellIn' => 10, 'quality' => 20],
-                ['name' => 'New Item', 'sellIn' => 15, 'quality' => 30],
+                [
+                    'name' => 'Test Item',
+                    'sellIn' => 10,
+                    'quality' => 20,
+                ],
+                [
+                    'name' => 'New Item',
+                    'sellIn' => 15,
+                    'quality' => 30,
+                ],
             ]),
         ]);
 
@@ -41,11 +50,19 @@ class ImportItemsServiceTest extends TestCase
         $this->service->handle();
 
         // Assert that items are stored correctly
-        $this->assertDatabaseHas('items', ['name' => 'Test Item', 'sell_in' => 10, 'quality' => 20]);
-        $this->assertDatabaseHas('items', ['name' => 'New Item', 'sell_in' => 15, 'quality' => 30]);
+        $this->assertDatabaseHas('items', [
+            'name' => 'Test Item',
+            'sell_in' => 10,
+            'quality' => 20,
+        ]);
+        $this->assertDatabaseHas('items', [
+            'name' => 'New Item',
+            'sell_in' => 15,
+            'quality' => 30,
+        ]);
     }
 
-    public function testProcessItemUpdate()
+    public function testProcessItemUpdate(): void
     {
         // Create an existing item in the database
         $existingItem = Item::factory()->create([
@@ -54,19 +71,26 @@ class ImportItemsServiceTest extends TestCase
         ]);
 
         // Call processItem method with data that should update the item
-        $this->service->processItem(['name' => 'Existing Item', 'quality' => 20]);
+        $this->service->processItem([
+            'name' => 'Existing Item',
+            'quality' => 20,
+        ]);
 
         // Assert the item's quality was updated
         $this->assertDatabaseHas('items', [
-            'id' => $existingItem->id,
+            'id' => $existingItem->id, // @phpstan-ignore-line
             'quality' => 20,
         ]);
     }
 
-    public function testProcessItemAddNew()
+    public function testProcessItemAddNew(): void
     {
         // Call processItem method with data for a new item
-        $this->service->processItem(['name' => 'New Item', 'sellIn' => 10, 'quality' => 30]);
+        $this->service->processItem([
+            'name' => 'New Item',
+            'sellIn' => 10,
+            'quality' => 30,
+        ]);
 
         // Assert the new item was added
         $this->assertDatabaseHas('items', [
