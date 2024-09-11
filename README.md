@@ -22,13 +22,16 @@
 - php artisan app:import-items -> to run command import items
 - access http://wolf-shop.local
 
-## Runs PHPUnit test, check coding standard (ECS) & automatically fix any violations
+## Coding analysis (phpstan), coding standard (ECS)
 
-- composer tests
-- composer test-coverage (This feature requires Xdebug or PCOV.) 
+- composer phpstan
 - composer check-cs
 - composer fix-cs
-- composer phpstan
+
+# Runs PHPUnit test
+
+- composer tests (this feature requires create database name default_test)
+- composer test-coverage (this feature requires Xdebug or PCOV.) 
 
 ## In case you want to CICD
 
