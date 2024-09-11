@@ -51,7 +51,7 @@ class ImportItemsService extends BaseService
      * @param mixed[] $item The item data from the API.
      * @return mixed
      */
-    private function processItem(array $item): void
+    public function processItem(array $item): void
     {
         $existingItem = $this->repository->findByField('name', $item['name'])->first();
 
@@ -69,7 +69,7 @@ class ImportItemsService extends BaseService
      * @param mixed[] $item The item data from the API.
      * @return mixed
      */
-    private function updateQuality($existingItem, array $item)
+    public function updateQuality($existingItem, array $item)
     {
         $this->repository->update([
             'quality' => $item['quality'] ?? $existingItem->quality,
@@ -82,7 +82,7 @@ class ImportItemsService extends BaseService
      * @param mixed[] $item The item data from the API.
      * @return mixed
      */
-    private function addNewItem(array $item)
+    public function addNewItem(array $item)
     {
         $newItem = new WolfShopItem(
             $item['name'] ?? '',
