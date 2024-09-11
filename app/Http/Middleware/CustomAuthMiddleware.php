@@ -20,11 +20,11 @@ class CustomAuthMiddleware
     {
         if ($request->hasHeader('Authorization')) {
             $authHeader = $request->header('Authorization');
-            list($type, $credentials) = explode(' ', $authHeader, 2); // @phpstan-ignore-line
+            list($type, $credentials) = explode(' ', $authHeader, 2);
 
             if (strtolower($type) === 'basic') {
                 $decodedCredentials = base64_decode($credentials, true);
-                list($username, $password) = explode(':', $decodedCredentials, 2); // @phpstan-ignore-line
+                list($username, $password) = explode(':', $decodedCredentials, 2);
 
                 // Hardcoded credentials
                 $validUsername = env('API_USERNAME');

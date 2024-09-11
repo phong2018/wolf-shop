@@ -17,14 +17,14 @@ class WithRelationsCriteria implements CriteriaInterface
      *
      * @var array
      */
-    protected $input; // @phpstan-ignore-line
+    protected $input;
 
     /**
      * List of allow relations
      *
      * @var array
      */
-    protected $allows; // @phpstan-ignore-line
+    protected $allows;
 
     /**
      * An constructor of WithRelationsCriteria
@@ -32,7 +32,7 @@ class WithRelationsCriteria implements CriteriaInterface
      * @param mixed $input
      * @param array $allows
      */
-    public function __construct($input = '', $allows = []) // @phpstan-ignore-line
+    public function __construct($input = '', $allows = [])
     {
         $this->input = array_filter(
             array_map(

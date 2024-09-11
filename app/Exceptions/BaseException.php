@@ -45,7 +45,7 @@ class BaseException extends Exception
      *
      * @return self
      */
-    public static function code($code, $args = [], $statusCode = 400) // @phpstan-ignore-line
+    public static function code($code, $args = [], $statusCode = 400)
     {
         return (new static(__('messages.' . $code, $args), $statusCode))->setMessageCode($code); // @phpstan-ignore-line
     }

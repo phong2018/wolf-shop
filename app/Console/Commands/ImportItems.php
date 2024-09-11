@@ -26,7 +26,7 @@ class ImportItems extends Command
     /**
      * Execute the console command.
      */
-    public function handle() // @phpstan-ignore-line
+    public function handle()
     {
         resolve(ImportItemsService::class)->handle();
     }

@@ -28,7 +28,7 @@ class OrderCriteria implements CriteriaInterface
      *
      * @param array|string $input
      */
-    public function __construct($input, $options = []) // @phpstan-ignore-line
+    public function __construct($input, $options = [])
     {
         $this->orders = array_filter(is_array($input) ? $input : explode(',', $input));
         $this->options = $options;

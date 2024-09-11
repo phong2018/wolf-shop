@@ -23,7 +23,7 @@ class ItemController extends Controller
     public function index(ListItemRequest $request)
     {
         $items = resolve(ListItemService::class)->setRequest($request)->handle();
-        return response()->json(new ItemCollection($items)); // @phpstan-ignore-line
+        return response()->json(new ItemCollection($items));
     }
 
     /**
@@ -35,6 +35,6 @@ class ItemController extends Controller
     {
         $item = resolve(ShowItemService::class)->setRequest($request)->setModel($request->get('item_id'))->handle();
         $itemUpdated = resolve(UploadImageItemService::class)->setRequest($request)->setModel($item)->handle();
-        return response()->json(new ItemResource($itemUpdated)); // @phpstan-ignore-line
+        return response()->json(new ItemResource($itemUpdated));
     }
 }

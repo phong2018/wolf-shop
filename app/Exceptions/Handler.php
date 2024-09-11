@@ -35,7 +35,7 @@ class Handler extends ExceptionHandler
      * logException
      * @param  \Exception  $e
      */
-    public function logException(Throwable $e) // @phpstan-ignore-line
+    public function logException(Throwable $e)
     {
         if (! ($e instanceof BaseException)
         && ! ($e instanceof ValidationException)
@@ -108,7 +108,6 @@ class Handler extends ExceptionHandler
             default:
                 break;
         }
-        // @phpstan-ignore-next-line
         return response()->json([
             'message' => $message,
             'errors' => $errors,

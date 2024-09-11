@@ -49,7 +49,6 @@ class ImportItemsService extends BaseService
      * process Item
      *
      * @param mixed[] $item The item data from the API.
-     * @return mixed
      */
     public function processItem(array $item): void
     {

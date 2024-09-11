@@ -28,7 +28,7 @@ class FilterCriteria implements CriteriaInterface
     /**
      * Instance of FilterCriteria
      */
-    public function __construct(array $input = [], array $allows = []) // @phpstan-ignore-line
+    public function __construct(array $input = [], array $allows = [])
     {
         $this->input = $input;
         $this->allows = $allows;
@@ -63,12 +63,12 @@ class FilterCriteria implements CriteriaInterface
         return $model;
     }
 
-    private function getFilter($filterName) // @phpstan-ignore-line
+    private function getFilter($filterName)
     {
         return 'App\\Filters\\' . Str::studly($filterName);
     }
 
-    private function isValidFilter($filter) // @phpstan-ignore-line
+    private function isValidFilter($filter)
     {
         return class_exists($filter);
     }
