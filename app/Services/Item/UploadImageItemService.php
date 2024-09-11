@@ -30,6 +30,23 @@ class UploadImageItemService extends BaseService
      */
     public function handle()
     {
+        $uploadResult = $this->uploadImageItem();
+
+        $itemUpdated = $this->repository->update([
+            'img_url' => $uploadResult['secure_url'],
+            'img_url_public_id' => $uploadResult['public_id'],
+        ], $this->model->id); // @phpstan-ignore-line
+
+        return $itemUpdated;
+    }
+
+    /**
+     * uploadImageItem
+     *
+     * @return mixed
+     */
+    public function uploadImageItem()
+    {
         $file = $this->data->get('image');
 
         // delete existed image
@@ -42,11 +59,6 @@ class UploadImageItemService extends BaseService
             'folder' => self::IMAGE_PATH_ITEMS,
         ]);
 
-        $itemUpdated = $this->repository->update([
-            'img_url' => $uploadResult['secure_url'],
-            'img_url_public_id' => $uploadResult['public_id'],
-        ], $this->model->id); // @phpstan-ignore-line
-
-        return $itemUpdated;
+        return $uploadResult;
     }
 }

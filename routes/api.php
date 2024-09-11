@@ -21,5 +21,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::middleware('custom.auth')->group(function () {
     Route::Resource('items', ItemController::class)->only(['index', 'show']);
-    Route::post('/items/upload-image', [ItemController::class, 'uploadImageItem']);
+    Route::post('/items/upload-image', [ItemController::class, 'uploadImageItem'])->name('items.uploadImageItem');
 });

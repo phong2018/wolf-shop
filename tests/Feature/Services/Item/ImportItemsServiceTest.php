@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Tests\Unit\Services\Item;
+namespace Tests\Feature\Services\Item;
 
 use App\Models\Item;
 use App\Repositories\Interfaces\ItemRepository;
